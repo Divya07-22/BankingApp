@@ -9,11 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Update this part:
-app.use(cors({
-    origin: 'http://localhost:5173', // Your Vite frontend URL
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true
-}));
+app.use(cors());
 
 app.use(express.json());
 
