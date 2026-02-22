@@ -6,18 +6,32 @@ dotenv.config();
 
 const app = express();
 
-// ✅ CORS — reads from FRONTEND_URL env var (set in Vercel dashboard)
-const allowedOrigins = [
-  process.env.FRONTEND_URL,
-  "http://localhost:5173",
-  "http://localhost:3000",
-].filter(Boolean);
+// ✅ CORS setup — FRONTEND_URL is set in Vercel dashboard for production
+const corsOptions = {
+  origin: function (origin, callback) {
+    const allowedOrigins = [
+      process.env.FRONTEND_URL,
+      "http://localhost:5173",
+      "http://localhost:3000",
+    ].filter(Boolean);
 
-app.use(cors({
-  origin: allowedOrigins,
-  methods: ["GET", "POST", "PUT", "DELETE"],
+    // Allow requests with no origin (e.g. curl, Postman)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS: ' + origin));
+    }
+  },
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
-}));
+  credentials: true,
+};
+
+// ✅ Handle preflight OPTIONS requests explicitly (required for Vercel serverless)
+app.options('*', cors(corsOptions));
+app.use(cors(corsOptions));
 
 app.use(express.json());
 
