@@ -6,9 +6,15 @@ dotenv.config();
 
 const app = express();
 
-// ✅ Proper CORS for frontend domain
+// ✅ CORS — reads from FRONTEND_URL env var (set in Vercel dashboard)
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  "http://localhost:5173",
+  "http://localhost:3000",
+].filter(Boolean);
+
 app.use(cors({
-  origin: "https://banking-app-llie.vercel.app",
+  origin: allowedOrigins,
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
 }));
