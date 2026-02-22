@@ -6,8 +6,8 @@ A full-stack banking web application built with **React + Vite** (frontend) and 
 
 | Service | URL |
 |---------|-----|
-| **Backend API** | [https://banking-app-sigma-six.vercel.app](https://banking-app-sigma-six.vercel.app) |
-| **Frontend** | *(Your Vercel frontend URL)* |
+| **Backend API** | [https://banking-app-theta-nine.vercel.app/](https://banking-app-theta-nine.vercel.app/) |
+| **Frontend API** | [https://banking-app-weri.vercel.app/](https://banking-app-weri.vercel.app/) |
 
 ---
 
